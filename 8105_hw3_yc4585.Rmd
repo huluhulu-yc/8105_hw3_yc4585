@@ -40,7 +40,7 @@ ny_noaa |>
 ```
 0 is the most commonly observed value, because 0 means no snow and in New York, the days of no snow is more than the days snow.
 
-### plot of average tmax
+### Plot of average tmax
 ```{r warning = FALSE}
 tmax_plot =
 ny_noaa |>
@@ -56,7 +56,7 @@ print(tmax_plot)
 ```
 
 # Problem 2
-### load ,clean and tidy data
+### Load, clean and tidy data
 ```{r message = FALSE}
 accel_df = read_csv("./hw3_data/nhanes_accel.csv") |>
   janitor::clean_names()
@@ -73,7 +73,7 @@ combined_ac_df = left_join(demo_df,accel_df,by="seqn") |>
       labels = c("male", "female"))) 
 ```
 
-### table of gender and education
+### Table of gender and education
 ```{r message = FALSE,warning = FALSE}
 gender_edu_table =
 combined_ac_df |>
@@ -96,7 +96,7 @@ print(gender_edu_table)
 ```
 
 
-### plot of age distribution of different gender and education level
+### Plot of age distribution of different gender and education level
 ```{r warning = FALSE}
 age_dist_plot =
 combined_ac_df |>
@@ -122,8 +122,7 @@ As for the plot, overall, the number of people at education level 3 is the highe
 
 At education level 2, in the younger and middle-aged groups, men generally outnumber women, but in older age groups, women equal or even surpass men in number. For education level 3, the middle age group has more women than men, while at ages around 20 and 80, there are more men than women.
 
-### total activity against age
-
+### Total activity against age
 ```{r}
 total_act_plot =
 combined_ac_df |>
@@ -144,12 +143,10 @@ combined_ac_df |>
 
 print(total_act_plot)
 ```
-
 Across all three education levels, middle-aged women have a higher total level of activity compared to their younger and older age groups. In education level 1, men around 60 years old show a peak in total activities.
 
 For both education levels 2 and 3, middle-aged women engage in more total activities than men. However, in the age group over 70 years old, men in both groups have more total activities than women. 
-
-### plot of 24-hour activity
+### Plot of 24-hour activity
 ```{r}
 act_24_plot=
 combined_ac_df |>
@@ -176,7 +173,7 @@ print(act_24_plot)
 In the plot, we used a linear model for fitting the data. For the three different education levels across both sexes, it is evident that activity time decreases over time. Additionally, for all three education levels, males demonstrate more activity time than females; however, as education level increases, the gap between the two narrows.
 
 # Problem 3
-### import and clean data
+### Import and clean data
 ```{r message = FALSE}
 Jan_2020 = read_csv("./hw3_data/citibike/Jan 2020 Citi.csv") |>
   janitor::clean_names() |>
@@ -200,7 +197,7 @@ combined_bike_df <- bind_rows(Jan_2020, July_2020,Jan_2024,July_2024)
 
 ```
 In the combined_bike_df dataset, we have information about the year, month, and weekday when each ride took place, the user ID, membership status, and the type of bike chosen. Additionally, the dataset provides details about the trip, including the start and end stations as well as the duration.
-### ride number by membership status
+### Ride number by membership status
 ```{r}
 table_ride_number =
 combined_bike_df |>
@@ -216,7 +213,7 @@ print(table_ride_number)
 ```
 From the table, we can see that the number of Citi Bike members has been increasing. For casual riders, there was a decline from July 2020 to January 2024, but the number increased from January 2024 to July 2024. The most rapid growth for both casual riders and Citi Bike members occurred from January 2024 to July 2024, with casual riders increasing by nearly five times and Citi Bike members increasing by more than twice. Additionally, there are consistently more Citi Bike members than casual riders.
 
-### table of 5 most popular starting station for 7,2024
+### Table of 5 most popular starting station for 7,2024
 ```{r}
 popular_5_df =
 July_2024 |>
@@ -229,7 +226,7 @@ July_2024 |>
 
 print(popular_5_df)
 ```
-### plot of different effections on duration
+### Plot of different effections on duration
 ```{r}
 median_duration_plot =
   combined_bike_df |>
@@ -248,7 +245,7 @@ print(median_duration_plot)
 From the plot, we can see that in both 2020 and 2024, the median ride duration is always longer in July than in January, likely due to the cold weather in January. Additionally, the gap in median ride duration between January and July is larger in 2020 than in 2024. We can also observe that in 2020, the duration in both July and January is higher than that in January and July of 2024.
 
 Regarding weekdays, in 2020, both January and July show that Saturday and Sunday have significantly longer durations compared to other days of the week. In 2024, during July, Saturday and Sunday have longer durations than the other days; however, in January, Friday and Saturday have the highest durations, while Monday, Sunday, and Tuesday are similar.
-### impact on the distribution of ride duration
+### Impact on the distribution of ride duration
 ```{r}
 distribution_duration_plot =
   bind_rows(Jan_2024,July_2024) |>
