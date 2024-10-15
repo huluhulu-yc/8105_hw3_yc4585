@@ -200,3 +200,32 @@ combined_bike_df <- bind_rows(Jan_2020, July_2020,Jan_2024,July_2024)
 
 ```
 In the combined_bike_df dataset, we have information about the year, month, and weekday when each ride took place, the user ID, membership status, and the type of bike chosen. Additionally, the dataset provides details about the trip, including the start and end stations as well as the duration.
+### ride number by membership status
+```{r}
+table_ride_number =
+combined_bike_df |>
+  group_by(year,month) |>
+  count(member_casual) |>
+  pivot_wider(
+    names_from = member_casual,
+    values_from = n
+  ) |>
+  knitr::kable()
+
+print(table_ride_number)
+```
+From the table, we can see that the number of Citi Bike members has been increasing. For casual riders, there was a decline from July 2020 to January 2024, but the number increased from January 2024 to July 2024. The most rapid growth for both casual riders and Citi Bike members occurred from January 2024 to July 2024, with casual riders increasing by nearly five times and Citi Bike members increasing by more than twice. Additionally, there are consistently more Citi Bike members than casual riders.
+
+### table of 5 most popular starting station for 7,2024
+```{r}
+popular_5_df =
+July_2024 |>
+  group_by(start_station_name) |>
+  count(start_station_name) |>
+  arrange(desc(n)) |> 
+  rename(number_rides_origin = n) |>
+  head(5) |>
+  knitr::kable()
+
+print(popular_5_df)
+```
