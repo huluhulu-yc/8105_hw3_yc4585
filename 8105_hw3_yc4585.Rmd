@@ -96,7 +96,7 @@ print(gender_edu_table)
 ```
 
 
-### plot of age distribution 
+### plot of age distribution of different gender and education level
 ```{r warning = FALSE}
 age_dist_plot =
 combined_ac_df |>
@@ -122,3 +122,29 @@ As for the plot, overall, the number of people at education level 3 is the highe
 
 At education level 2, in the younger and middle-aged groups, men generally outnumber women, but in older age groups, women equal or even surpass men in number. For education level 3, the middle age group has more women than men, while at ages around 20 and 80, there are more men than women.
 
+### total activity against age
+
+```{r}
+total_act_plot =
+combined_ac_df |>
+  group_by(seqn,age,sex,education) |>
+  summarise(sum_mins = sum(min1:min45)) |>
+  ggplot(aes(x = age,y = sum_mins,color = sex)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(se = FALSE) +
+  labs(title = 'Total Activities against Age by Gender and Education Level',
+       subtitle = 'Eudcation Level',
+       x = 'Age',
+       y = 'Total activity (mins)',
+       fill = 'sex') +
+  facet_grid(. ~ education)+
+  theme(plot.title = element_text(hjust = 0.5),  
+        plot.subtitle = element_text(hjust = 0.5))
+
+
+print(total_act_plot)
+```
+
+Across all three education levels, middle-aged women have a higher total level of activity compared to their younger and older age groups. In education level 1, men around 60 years old show a peak in total activities.
+
+For both education levels 2 and 3, middle-aged women engage in more total activities than men. However, in the age group over 70 years old, men in both groups have more total activities than women. 
