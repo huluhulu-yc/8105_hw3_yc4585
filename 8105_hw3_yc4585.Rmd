@@ -1,0 +1,44 @@
+---
+title: "8105_hw3_yc4585"
+output: github_document
+date: "2024-10-15"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r message=FALSE}
+library(p8105.datasets)
+library(readr)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+```
+
+# Problem 1
+```{r}
+data("ny_noaa")
+prcp_missing = ny_noaa[is.na(ny_noaa$prcp), ]
+snow_missing = ny_noaa[is.na(ny_noaa$snow), ]
+snwd_missing = ny_noaa[is.na(ny_noaa$snwd), ]
+tmax_missing = ny_noaa[is.na(ny_noaa$tmax), ]
+tmin_missing = ny_noaa[is.na(ny_noaa$tmin), ]
+
+```
+This dataset has 2595176 rows and 7 columns,the main variables includes id, date, prcp, snow,snwd,tmax amd tmin. The prcp has 145838 missing values, snow column has 381221 missing values
+
+
+```{r}
+ny_noaa  |>
+  janitor::clean_names() |>
+  separate(date, into = c("year", "month","day"), sep = "-") 
+
+ny_noaa |>
+  count(snow) |>
+  arrange(desc(n))
+```
+0 is the most commonly observed value, because 0 means no snow and in New York, the days of no snow is more than the days snow.
+
+```
+
