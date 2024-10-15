@@ -41,8 +41,8 @@ ny_noaa |>
 0 is the most commonly observed value, because 0 means no snow and in New York, the days of no snow is more than the days snow.
 
 ### plot of average tmax
-```{r}
-tmax_plot=
+```{r warning = FALSE}
+tmax_plot =
 ny_noaa |>
   separate(date, into = c("year", "month","day"), sep = "-")  |>
   group_by(id,year,month) |>
@@ -55,5 +55,21 @@ ny_noaa |>
 print(tmax_plot)
 ```
 
+# Problem 2
+### load ,clean and tidy data
+```{r message = FALSE}
+accel_df = read_csv("./hw3_data/nhanes_accel.csv") |>
+  janitor::clean_names()
+
+demo_df = read_csv("./hw3_data/nhanes_covar.csv",skip = 4) |>
+  janitor::clean_names() |>
+  na.omit()
+
+combined_ac_df = left_join(demo_df,accel_df,by="seqn") |>
+  filter(age>21) |>
+  mutate(
+    sex = factor(
+      sex, levels = c(1, 2), 
+      labels = c("male", "female"))) 
 ```
 
