@@ -40,5 +40,20 @@ ny_noaa |>
 ```
 0 is the most commonly observed value, because 0 means no snow and in New York, the days of no snow is more than the days snow.
 
+### plot of average tmax
+```{r}
+tmax_plot=
+ny_noaa |>
+  separate(date, into = c("year", "month","day"), sep = "-")  |>
+  group_by(id,year,month) |>
+  filter(month=="01"|month=="02"|month=="03"|month=="04"|month=="05"|month=="06"|month=="07") |>
+  summarise(mean_tmax = mean(as.numeric(tmax),na.rm = TRUE)) |>
+  ggplot(aes(x = year,y = mean_tmax)) +
+  geom_point() +
+  facet_wrap(~month)
+
+print(tmax_plot)
+```
+
 ```
 
